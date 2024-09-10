@@ -1,0 +1,51 @@
+this is book allocation problem\
+
+int student(vector<int>nums,int pages){
+    int s= 1;  
+    int p=0;
+    for(int i=0;i<nums.size();i++){
+        if(p+nums[i]<=pages){
+            p=p+nums[i];
+        }
+        else {
+            s++;
+            p=nums[i];
+        }
+    }
+    return s;
+}
+
+int findPages(vector<int>& arr, int n, int m) {
+    
+    int low=0;
+    int high=0;
+    for(auto i:arr){
+        low=max(low,i);
+        high+=i;
+    }
+
+
+    if(m>n)return -1;
+
+    // for(int pages=low;pages<=high;pages++){
+    //     int currS=student(arr,pages);
+    //     if(currS==m)return pages;
+    // }
+
+    // return low;
+
+    while(low<=high){
+        int mid=low+(high-low)/2;
+        int currS=student(arr,mid);
+        //if(currS==m) return mid;
+        if(currS<=m){
+            high=mid-1;
+        }
+        else{
+            low=mid+1;
+        }
+    }
+
+    return low;
+    
+}
